@@ -82,6 +82,8 @@ class CallController(implicit inj: Injector, cxt: WireContext, eventContext: Eve
   val callStateOpt      = currentCallOpt.map(_.flatMap(_.state))
   val callState         = callStateOpt.collect { case Some(s) => s }
 
+  val prevCallStateOpt = currentCallOpt.map(_.flatMap(_.prevState))
+
   val isCallEstablished = callStateOpt.map(_.contains(SelfConnected))
   val isCallOutgoing    = callStateOpt.map(_.contains(SelfCalling))
   val isCallIncoming    = callStateOpt.map(_.contains(OtherCalling))
